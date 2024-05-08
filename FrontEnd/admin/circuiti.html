@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circuits</title>
+    <link rel="stylesheet" href="circuiti.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="./index.html">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-dark mt-3 mb-3" data-bs-toggle="modal"
+                    data-bs-target="#circuitModal" onclick="clearModal(), 
+                    loadMap()">
+                    Add Circuit
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="text" id="searchInput" placeholder="Search" autocomplete="off">
+
+                <label for="searchInput" class="search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="table-responsive overflow-scroll" style="max-height: 400px;">
+                    <table id="circuitTable"
+                        class="table table-striped table-hover table-dark align-middle text-center ">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Actions</th>
+                                <th>Circuit ID</th>
+                                <th>Circuit Ref</th>
+                                <th>Name</th>
+                                <th>Location</th>
+                                <th>Country</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Altitude</th>
+                                <th>Clockwise</th>
+                                <th>Lenght</th>
+                                <th>Corners</th>
+                                <th>Left Corners</th>
+                                <th>Right Corners</th>
+                                <th>Circuit Key</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <!-- I dati dei circuiti verranno inseriti qui tramite JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal per aggiungere o modificare un circuito -->
+    <div class="modal fade" id="circuitModal" tabindex="-1" role="dialog" aria-labelledby="circuitModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="circuitModalLabel">Aggiungi Circuito</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="circuitForm">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="circuitRef">Circuit ID:</label>
+                                    <input type="text" class="form-control" id="circuitId" name="circuitId"
+                                        autocomplete="off" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="circuitRef">Circuit Ref:</label>
+                                    <input type="text" class="form-control" id="circuitRef" name="circuitRef" required
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" id="name" name="name" required
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="location">Location:</label>
+                                    <input type="text" class="form-control" id="location" name="location"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="country">Country:</label>
+                                    <input type="text" class="form-control" id="country" name="country"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="lat">Latitude:</label>
+                                            <input type="number" class="form-control" step="any" id="lat" name="lat"
+                                                disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="lng">Longitude:</label>
+                                            <input type="number" class="form-control" step="any" id="lng" name="lng"
+                                                disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="searchLocation">Search Location:</label>
+
+                                        <input id="searchLocation" type="text" autocomplete="off">
+                                        <button type="button" class="btn" id="searchLocationButton">Cerca</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div id="mapContainer">
+                                            <div id="map"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="alt">Altitude:</label>
+                                    <input type="number" class="form-control" id="alt" name="alt" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="url">URL:</label>
+                                    <input type="text" class="form-control" id="url" name="url" required
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input form-control" type="checkbox" value=""
+                                            id="clockwise" name="clockwise">
+                                        <label class="form-check-label" for="clockwise">&nbsp;Clockwise</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="length">Length:</label>
+                                    <input type="number" class="form-control" id="length" name="length"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="turns">Corners:</label>
+                                    <input type="number" class="form-control" id="turns" name="turns" min="0" required
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="leftTurns">Left Corners:</label>
+                                    <input type="number" class="form-control" id="leftTurns" name="leftTurns" min="0"
+                                        required autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="rightTurns">Right Corners:</label>
+                                    <input type="number" class="form-control" id="rightTurns" name="rightTurns" min="0"
+                                        required autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="key">Circuit Key:</label>
+                                    <input type="number" class="form-control" id="circuitKey" min="0" name="circuitKey"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                    <button type="submit" form="circuitForm" class="btn btn-primary">Salva</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript e script personalizzato -->
+    <script src="circuiti.js"></script>
+</body>
+
+</html>

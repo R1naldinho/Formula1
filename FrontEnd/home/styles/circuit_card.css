@@ -1,0 +1,168 @@
+@import "color.css";
+@import "circuit.css";
+
+:root {
+  --dot-corner: var(--corner-fill);
+  --dot-marshall-position: var(--marshalLights-fill);
+  --dot-marshall-light: var(--marshalSectors-fill);
+  --switch-on: #00d500;
+}
+
+#collapseCircuit {
+  .card {
+    background-color: var(--gray20) !important;
+    color: var(--gray7);
+    margin: 10px;
+    padding: 10px;
+    font-size: larger;
+    font-weight: bold;
+  }
+}
+
+hr.rounded {
+  border-top: 5px solid var(--gray1) !important;
+  border-radius: 5px;
+}
+
+.row_turns {
+  margin-top: 25px !important;
+  margin-bottom: 5px !important;
+}
+
+#legendModal {
+  .modal-header {
+    background-color: var(--gray21) !important;
+    color: var(--gray7);
+    h1 {
+      font-size: 25px !important;
+    }
+    .btn {
+      color: var(--gray7) !important;
+      border: solid 2px rgba(255, 255, 255, 0) !important;
+    }
+    .btn:hover {
+      background-color: var(--gray21) !important;
+      color: var(--gray2) !important;
+      border: solid 2px var(--gray5) !important;
+      box-shadow: 0 0 10px var(--gray3);
+    }
+  }
+
+  .modal-body {
+    background-color: var(--gray13) !important;
+    color: var(--gray23);
+    font-weight: bold;
+  }
+
+  .modal-footer {
+    background-color: var(--gray21) !important;
+    color: var(--gray7);
+
+    .btn {
+      color: var(--gray7) !important;
+      border: solid 2px var(--gray5) !important;
+    }
+    .btn:hover {
+      background-color: var(--gray21) !important;
+      color: var(--gray2) !important;
+      border: solid 2px var(--gray3) !important;
+      box-shadow: 0 0 10px var(--gray2);
+    }
+  }
+}
+
+.row_circuit {
+  margin-top: 15px;
+}
+
+.btn-settings {
+  margin-top: 15px;
+  color: var(--gray5) !important;
+  border: solid 2px rgba(255, 255, 255, 0) !important;
+}
+
+.btn-settings:hover {
+  background-color: var(--gray23) !important;
+  color: var(--gray3) !important;
+  border: solid 2px var(--gray2) !important;
+  box-shadow: 0 0 10px var(--gray1);
+}
+
+.offcanvas {
+  background-color: var(--gray23) !important;
+  color: var(--gray7) !important;
+  .offcanvas-header {
+    background-color: var(--gray20);
+    color: var(--gray7) !important;
+    border-radius: 10px;
+    margin-top: 20px !important;
+    .btn {
+      color: var(--gray7) !important;
+      border: solid 2px rgba(255, 255, 255, 0) !important;
+    }
+    .btn:hover {
+      background-color: var(--gray21) !important;
+      color: var(--gray2) !important;
+      border: solid 2px var(--gray5) !important;
+      box-shadow: 0 0 10px var(--gray3);
+    }
+  }
+  .offcanvas-body {
+    .form-check-input {
+      border: 2px solid var(--gray5) !important;
+      background-color: var(--gray10);
+    }
+
+    .form-check-input:checked {
+      background-color: var(--switch-on) !important;
+      box-shadow: none !important;
+    }
+
+    .form-check-input:focus {
+      box-shadow: none !important;
+    }
+
+    .btn-save {
+      margin-top: 20px;
+      background-color: var(--gray7);
+      border: solid 2px var(--gray5) !important;
+      color: var(--gray20) !important;
+      font-weight: bold;
+    }
+
+    .btn-save:hover {
+      background-color: var(--gray20) !important;
+      color: var(--gray7) !important;
+      border: solid 2px var(--gray5) !important;
+      box-shadow: 0 0 10px var(--gray3);
+    }
+  }
+}
+
+#toastSettings {
+  border: solid 2px var(--gray5) !important;
+  border-radius: 10px;
+  .toast-header {
+    background-color: var(--gray21) !important;
+    color: var(--gray7) !important;
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+    .btn {
+      color: var(--gray7) !important;
+      border: solid 2px rgba(255, 255, 255, 0) !important;
+    }
+    .btn:hover {
+      background-color: var(--gray21) !important;
+      color: var(--gray2) !important;
+      border: solid 2px var(--gray5) !important;
+      box-shadow: 0 0 10px var(--gray3);
+    }
+  }
+  .toast-body {
+    background-color: var(--gray13) !important;
+    color: var(--gray23) !important;
+    font-weight: bold;
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+  }
+}

@@ -1,0 +1,33 @@
+#map {
+  height: 100% !important;
+  border-radius: 10px !important;
+  border: solid 2px rgba(240, 248, 255, 0.856) !important;
+}
+
+/* Stile del pulsante di zoom in */
+.leaflet-control-zoom-in {
+  background-color: rgba(213, 213, 213, 0.9) !important; /* Colore di sfondo */
+  color: rgba(75, 75, 75, 0.788) !important; /* Colore del testo */
+  font-weight: bolder !important;
+}
+
+/* Stile del pulsante di zoom out */
+.leaflet-control-zoom-out {
+  margin-top: 0px !important;
+  background-color: rgba(213, 213, 213, 0.9) !important; /* Colore di sfondo */
+  color: rgba(75, 75, 75, 0.788) !important; /* Colore del testo */
+  font-weight: bolder !important;
+  border-top: 1px solid rgba(75, 75, 75, 0.788) !important;
+}
+
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+  background-color: rgba(240, 248, 255, 0.95) !important; /* Colore di sfondo */
+  color: rgba(21, 21, 21, 0.788) !important; /* Colore del testo */
+  font-weight: bolder !important;
+}
+
+.leaflet-control-zoom {
+  border: solid 2px rgba(240, 248, 255, 0.856) !important;
+  border-radius: 5px !important;
+}

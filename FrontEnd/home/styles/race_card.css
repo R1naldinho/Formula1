@@ -1,0 +1,39 @@
+@import "color.css";
+
+#collapseSession {
+  .card {
+    background-color: var(--gray20) !important;
+    color: var(--gray7);
+    margin: 10px;
+    padding: 10px;
+    font-size: larger;
+    font-weight: bold;
+    svg {
+      color: var(--gray3);
+    }
+  }
+}
+.session_row {
+  margin: 5px !important;
+  padding: 5px;
+}
+
+
+hr.rounded_session {
+  border-top: 5px solid #ffffff !important;
+  border-radius: 5px;
+}
+
+.session_col {
+  font-weight: bold;
+}
+
+.badge_session_name {
+  width: 50% !important;
+  padding: 15px !important;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: var(--gray22) !important;
+  border: 2px solid var(--gray6) !important;
+  color: var(--gray3) !important;
+}

@@ -1,0 +1,13 @@
+.session-card{
+    margin: 10px !important;
+    width: 100% !important;
+}
+.session-container{
+    margin-top: 30px !important;
+    width: 80% !important;
+}
+
+.btn-session{
+    background-color: #7f7f7f !important;
+    color: #f4f4f4 !important;
+}

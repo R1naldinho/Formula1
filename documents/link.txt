@@ -1,0 +1,9 @@
+https://api.multiviewer.app/api/v1/circuits  
+https://livetiming.formula1.com/static/2022/2022-11-20_Abu_Dhabi_Grand_Prix/2022-11-19_Qualifying/Index.json
+https://livetiming.formula1.com/static/2022/Index.json
+
+
+https://github.com/GabrielCrackPro/f1-api
+https://github.com/thiagomarqs/f1-standings-api
+https://github.com/MarcHeiden/formula-ap1?tab=readme-ov-file
+https://github.com/bacinger/f1-circuits?tab=readme-ov-file

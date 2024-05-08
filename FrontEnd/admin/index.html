@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Benvenuto Admin</title>
+    <!-- Link al CSS di Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logout-button {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="welcome-message"><span id="username"></span>!</h1>
+        <p class="text-center">Puoi accedere alle varie pagine tramite i seguenti link:</p>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="circuiti.html">Pagina Circuiti</a></li>
+            <!-- Aggiungi altri link qui se necessario -->
+        </ul>
+        <button class="btn btn-primary logout-button" onclick="logout()">Logout</button>
+    </div>
+    <script src="index.js"></script>
+    <script>
+        // Funzione per ottenere il saluto in base all'ora del giorno
+        const getGreeting = () => {
+            const now = new Date();
+            const hour = now.getHours();
+            let greeting = '';
+
+            if (hour >= 5 && hour < 12) {
+                greeting = 'Buongiorno';
+            } else if (hour >= 12 && hour < 18) {
+                greeting = 'Buon pomeriggio';
+            } else {
+                greeting = 'Buonasera';
+            }
+
+            return greeting;
+        };
+
+        // Funzione per ottenere il nome dell'utente dal token JWT
+        const getUsernameFromJWT = () => {
+            const token = localStorage.getItem('accessToken');
+            if (token) {
+                const decodedToken = JSON.parse(atob(token.split('.')[1]));
+                console.log(decodedToken);
+                return decodedToken.username;
+            }
+            return null;
+        };
+
+        // Funzione per visualizzare il nome dell'utente e il saluto corrispondente
+        const showUsernameAndGreeting = () => {
+            const username = getUsernameFromJWT();
+            const greeting = getGreeting();
+            console.log(username, greeting);
+
+            if (username) {
+                document.getElementById('username').textContent = `${greeting}, ${username}`;
+            } else {
+                document.getElementById('username').textContent = greeting;
+            }
+        };
+
+        // Chiamata alla funzione quando la pagina si carica
+        showUsernameAndGreeting();
+
+    </script>
+</body>
+</html>

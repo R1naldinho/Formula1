@@ -1,0 +1,90 @@
+body{
+    background-color: rebeccapurple !important;
+}
+
+.btn-settings{
+    color: rgb(241, 178, 255) !important;
+}
+
+
+.progress-bar {
+  color: black;
+  border: solid 1px black;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.progress-stacked {
+  border: solid 2px black;
+  border-radius: 5px !important;
+  height: 50px !important;
+}
+
+.stintBars {
+  width: 80% !important;
+  padding: 5px;
+  margin: 10px !important;
+}
+
+.stint-card{
+    color: rgb(30, 30, 30) !important;
+    background-color: rgb(241, 178, 255) !important;
+    font-size: 18px;
+    font-weight: bold;
+
+    .card-title{
+        font-size: 25px;
+        font-weight: bold;
+    
+    }
+}
+
+.container {
+  margin-top: 20px;
+  padding: 5px;
+}
+
+.tyres_label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.modal-footer, .modal-header {
+  background-color: rebeccapurple !important;
+  color: aliceblue !important;
+}
+
+.modal-body{
+    background-color: rgb(255, 252, 249);
+}
+
+.btn-settings {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-setting-close {
+    color: aliceblue !important;
+    border: solid 2px rebeccapurple !important;
+  }
+  
+  .btn-setting-close:hover {
+    background-color: rgba(240, 248, 255, 0.202) !important;
+    color: aliceblue !important;
+    border: solid 2px rgba(240, 248, 255, 0.856) !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+.modal-footer {
+    .btn {
+      color: aliceblue !important;
+      border: solid 2px rebeccapurple !important;
+    }
+  
+    .btn:hover {
+      background-color: rgba(240, 248, 255, 0.202) !important;
+      color: aliceblue !important;
+      border: solid 2px rgba(240, 248, 255, 0.856) !important;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+  }

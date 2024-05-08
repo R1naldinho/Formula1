@@ -1,0 +1,64 @@
+@import 'color.css';
+:root{
+  --path-stroke: #EAEAEA;
+  --path-stroke-width: 5;
+
+  --marshalLights-fill: #FF2E63;
+  --marshalLights-stroke: #252A34;
+  --marshalLights-stroke-width: 1;
+
+  --marshalSectors-fill: #08D9D6;
+  --marshalSectors-stroke: #252A34;
+  --marshalSectors-stroke-width: 1;
+
+  --corner-fill: #EAEAEA;
+  --corner-stroke: #252A34;
+  --corner-stroke-width: 1;
+
+  --corner-number-font-size: 20px;
+  --corner-number-fill: #EAEAEA;
+}
+
+#circuito {
+  margin-top: 20px;
+  width: 100% !important;
+  height: 100% !important;
+  transition: transform 0.3s ease;
+  border-radius: 10px !important;
+  border: 2px solid var(--gray9);
+}
+
+.circuito-container{
+  margin-bottom: 20px;
+}
+
+#compass {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid red;
+}
+
+.letter {
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 50px;
+  color: var(--gray1);
+}
+
+.corners-name {
+  font-weight: bold;
+  color: var(--gray5) !important;
+  text-shadow: -1px 0 var(--gray25), 0 1px var(--gray25), 1px 0 var(--gray25), 0 -1px var(--gray25);
+}

@@ -1,0 +1,40 @@
+@import 'color.css';
+
+.flag-icon {
+  font-size: 30px;
+}
+
+.info-card {
+  margin: 10px;
+  margin-top: 10px !important;
+  background-color: var(--gray18) !important;
+  .card-header{
+    background-color: var(--gray23) !important;
+    color: var(--gray5);
+  }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background-color: var(--gray3) !important;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-action{
+    background-color: var(--gray20) !important;
+    color: var(--gray5) !important;
+    border: solid 2px var(--gray5) !important;
+}
+
+.btn-action:hover{
+    background-color: var(--gray24) !important;
+    color: var(--gray3) !important;
+    border: solid 2px var(--gray2) !important;
+    box-shadow: 0 0 10px var(--gray1);
+}

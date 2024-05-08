@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- css -->
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/circuit_card.css">
+    <link rel="stylesheet" href="./styles/race_card.css">
+    <link rel="stylesheet" href="./styles/map.css">
+    <link rel="stylesheet" href="./styles/circuit.css">
+    <link rel="stylesheet" href="./styles/color.css">
+
+    <!-- script -->
+    <script src="./scripts/main.js" defer></script>
+    <script src="./scripts/circuit.js" defer></script>
+    <script src="./scripts/session.js" defer></script>
+
+
+    <!-- svg pan zoom-->
+    <script src="./scripts/svg-pan-zoom.js" defer></script>
+
+
+
+
+    <!-- flag icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <!-- Leaflet -->
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+</head>
+
+<body class="overflow-y-scroll">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../session.html">Session</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <p class="text-center m-0" id="session_name_nav"></p>&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="container">
+        <div class="row" style="width: 100% !important;">
+            <div class="col">
+                <div class="card info-card">
+                    <div class="card-header d-flex align-items-center">
+                        <h5 id="session_name" class="card-title">Monza</h5>
+                    </div>
+                    <div class="card-body align-items-center">
+                        <button class="btn btn-action"
+                            onclick="showCollapse('collapseSession', 'btnSession', 'Sessions')" id="btnSession">
+                            Show Sessions
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                            </svg>
+                        </button>
+                        <div class="collapse" id="collapseSession">
+                            <div class="card card-body" id="card_session">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-action"
+                            onclick="showCollapse('collapseCircuit', 'btnCircuit', 'Circuit')" id="btnCircuit">
+                            Show Circuit
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
+                            </svg>
+                        </button>
+                        <div class="collapse" id="collapseCircuit">
+                            <div class="card info-card h-100">
+                                <div class="card-header d-flex align-items-center">
+                                    <div class="row w-100">
+                                        <div class="col">
+                                            <h5 class="card-title" id="circuit_name"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col  text-center">
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                                        fill="currentColor" class="bi bi-geo-fill" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.3 1.3 0 0 0-.37.265.3.3 0 0 0-.057.09V14l.002.008.016.033a.6.6 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.6.6 0 0 0 .146-.15l.015-.033L12 14v-.004a.3.3 0 0 0-.057-.09 1.3 1.3 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465s-2.462-.172-3.34-.465c-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411" />
+                                                    </svg>
+                                                </div>
+                                                <div class="col ">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p id="location"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p id="flag"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row align-items-center">
+                                                <div class="col">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                                        fill="currentColor" class="bi bi-globe2" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m7.5-6.923c-.67.204-1.335.82-1.887 1.855q-.215.403-.395.872c.705.157 1.472.257 2.282.287zM4.249 3.539q.214-.577.481-1.078a7 7 0 0 1 .597-.933A7 7 0 0 0 3.051 3.05q.544.277 1.198.49zM3.509 7.5c.036-1.07.188-2.087.436-3.008a9 9 0 0 1-1.565-.667A6.96 6.96 0 0 0 1.018 7.5zm1.4-2.741a12.3 12.3 0 0 0-.4 2.741H7.5V5.091c-.91-.03-1.783-.145-2.591-.332M8.5 5.09V7.5h2.99a12.3 12.3 0 0 0-.399-2.741c-.808.187-1.681.301-2.591.332zM4.51 8.5c.035.987.176 1.914.399 2.741A13.6 13.6 0 0 1 7.5 10.91V8.5zm3.99 0v2.409c.91.03 1.783.145 2.591.332.223-.827.364-1.754.4-2.741zm-3.282 3.696q.18.469.395.872c.552 1.035 1.218 1.65 1.887 1.855V11.91c-.81.03-1.577.13-2.282.287zm.11 2.276a7 7 0 0 1-.598-.933 9 9 0 0 1-.481-1.079 8.4 8.4 0 0 0-1.198.49 7 7 0 0 0 2.276 1.522zm-1.383-2.964A13.4 13.4 0 0 1 3.508 8.5h-2.49a6.96 6.96 0 0 0 1.362 3.675c.47-.258.995-.482 1.565-.667m6.728 2.964a7 7 0 0 0 2.275-1.521 8.4 8.4 0 0 0-1.197-.49 9 9 0 0 1-.481 1.078 7 7 0 0 1-.597.933M8.5 11.909v3.014c.67-.204 1.335-.82 1.887-1.855q.216-.403.395-.872A12.6 12.6 0 0 0 8.5 11.91zm3.555-.401c.57.185 1.095.409 1.565.667A6.96 6.96 0 0 0 14.982 8.5h-2.49a13.4 13.4 0 0 1-.437 3.008M14.982 7.5a6.96 6.96 0 0 0-1.362-3.675c-.47.258-.995.482-1.565.667.248.92.4 1.938.437 3.008zM11.27 2.461q.266.502.482 1.078a8.4 8.4 0 0 0 1.196-.49 7 7 0 0 0-2.275-1.52c.218.283.418.597.597.932m-.488 1.343a8 8 0 0 0-.395-.872C9.835 1.897 9.17 1.282 8.5 1.077V4.09c.81-.03 1.577-.13 2.282-.287z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row align-items-center">
+                                                        <div class="col">
+                                                            <p id="latitude"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row align-items-center">
+                                                        <div class="col">
+                                                            <p id="longitude"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row align-items-center" id="row-lenght">
+                                                <div class="col">
+                                                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="40"
+                                                        height="40" viewBox="0 0 2500.000000 2500.000000"
+                                                        preserveAspectRatio="xMidYMid meet">
+
+                                                        <g transform="translate(0.000000,2500.000000) scale(0.100000,-0.100000)"
+                                                            fill="currentColor" stroke="none">
+                                                            <path d="M1111 15919 c-268 -31 -541 -167 -741 -368 -173 -175 -279 -366 -343
+-621 l-21 -85 -4 -2280 c-2 -1650 0 -2306 8 -2373 72 -587 531 -1045 1115
+-1112 126 -14 22624 -14 22750 0 580 67 1034 516 1114 1103 8 54 11 789 11
+2320 0 2443 2 2335 -56 2527 -146 479 -572 833 -1069 890 -112 12 -22654 12
+-22764 -1z m619 -1709 c0 -894 0 -912 21 -972 38 -114 106 -189 217 -241 233
+-109 514 38 562 293 6 33 10 388 10 941 l0 889 460 0 460 0 1 -487 c0 -478 0
+-489 22 -545 44 -115 124 -195 237 -239 77 -31 203 -31 283 0 75 29 148 88
+193 155 68 103 68 98 72 634 l3 482 455 0 454 0 0 -877 c0 -503 4 -903 10
+-936 15 -95 55 -170 126 -236 76 -71 147 -102 254 -108 162 -11 317 84 389
+236 l26 56 3 933 2 932 460 0 460 0 0 -460 c0 -297 4 -478 11 -512 34 -164
+167 -289 339 -320 166 -29 343 68 423 231 l32 66 3 498 3 497 459 0 460 0 2
+-927 3 -928 32 -67 c41 -88 113 -160 201 -201 61 -29 75 -32 167 -32 91 0 106
+3 165 31 82 40 136 87 177 155 65 108 63 80 63 1071 l0 898 460 0 459 0 3
+-497 3 -498 32 -68 c77 -163 255 -258 426 -228 174 30 304 158 337 331 6 30
+10 243 10 506 l0 454 458 -2 457 -3 5 -930 5 -930 33 -67 c41 -84 128 -167
+209 -199 82 -33 224 -33 306 0 127 50 229 186 248 327 4 38 8 459 9 937 l0
+867 455 0 455 0 0 -454 c0 -261 4 -476 10 -507 32 -173 166 -302 344 -331 126
+-21 285 40 364 140 18 22 45 67 60 99 l27 58 3 498 3 497 459 0 460 0 0 -898
+c0 -991 -2 -963 63 -1071 41 -68 95 -115 177 -155 60 -28 73 -31 166 -31 96 0
+103 2 176 38 91 44 146 102 192 197 l31 65 3 928 2 927 460 0 459 0 3 -497 3
+-498 32 -66 c80 -163 258 -260 425 -230 139 24 250 109 311 239 l32 67 3 493
+3 492 459 0 460 0 2 -932 3 -933 27 -55 c133 -270 476 -322 675 -102 38 43 80
+133 92 197 7 39 11 348 11 942 l0 883 455 0 455 0 0 -437 c0 -241 5 -469 10
+-508 26 -179 158 -315 339 -346 167 -30 347 66 426 226 l30 60 5 500 5 500
+458 3 457 2 0 -889 c0 -558 4 -908 10 -942 23 -124 109 -233 228 -291 62 -30
+75 -33 167 -33 92 0 106 3 166 31 78 37 136 87 177 152 64 100 62 64 62 1064
+l0 908 250 0 c265 0 321 -7 408 -47 68 -32 163 -120 201 -187 65 -113 61 52
+61 -2384 0 -2437 4 -2274 -60 -2387 -62 -109 -185 -198 -308 -224 -76 -16
+-22569 -16 -22644 0 -121 26 -247 117 -307 222 -65 115 -61 -50 -61 2380 0
+1429 4 2223 10 2258 31 164 176 314 345 355 32 8 141 13 308 13 l257 1 0 -910z" />
+                                                        </g>
+                                                    </svg>
+
+                                                </div>
+                                                <div class="col">
+                                                    <p id="length"></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                                        viewBox="0 0 360.000000 360.000000"
+                                                        preserveAspectRatio="xMidYMid meet">
+
+                                                        <g transform="translate(0.000000,360.000000) scale(0.100000,-0.100000)"
+                                                            fill="currentColor" stroke="none">
+                                                            <path d="M1305 2736 c-28 -13 -64 -38 -79 -57 -16 -18 -195 -368 -400 -776
+                                           l-371 -744 0 -72 c1 -84 23 -136 80 -185 74 -66 -9 -62 1269 -62 1102 0 1163
+                                           1 1201 19 112 51 172 188 131 301 -13 36 -515 830 -571 904 -18 25 -54 53 -90
+                                           71 -49 25 -70 30 -129 30 -99 -1 -149 -26 -255 -129 l-86 -84 -185 344 c-102
+                                           190 -198 361 -214 381 -66 80 -200 107 -301 59z m147 -178 c9 -7 159 -278 333
+                                           -603 174 -324 328 -601 342 -614 54 -48 153 -3 153 71 0 19 -31 88 -85 188
+                                           -47 87 -85 164 -85 172 0 25 182 194 215 201 66 12 74 2 364 -455 268 -421
+                                           274 -432 260 -457 l-15 -26 -1127 -3 c-1116 -2 -1127 -2 -1147 18 -11 11 -20
+                                           27 -20 35 0 29 719 1453 742 1469 27 19 49 20 70 4z" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <div class="col">
+                                                    <p id="altitude"></p>
+                                                </div>
+                                            </div>
+                                            <div class="row row_turns" id="row-turn-icon">
+                                                <div class="col">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                                        fill="currentColor" class="bi bi-sign-turn-left"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M11 8.5A2.5 2.5 0 0 0 8.5 6H7V4.534a.25.25 0 0 0-.41-.192L4.23 6.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 7 8.466V7h1.5A1.5 1.5 0 0 1 10 8.5V11h1z" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.48 1.48 0 0 1 0-2.098zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134Z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="col">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                                        fill="currentColor" class="bi bi-sign-turn-right"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M5 8.5A2.5 2.5 0 0 1 7.5 6H9V4.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L9.41 8.658A.25.25 0 0 1 9 8.466V7H7.5A1.5 1.5 0 0 0 6 8.5V11H5z" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.48 1.48 0 0 1 0-2.098zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134Z" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="row" id="row-turns">
+                                                <div class="col">
+                                                    <p id="left_turns"></p>
+                                                </div>
+                                                <div class="col">
+                                                    <p id="right_turns"></p>
+                                                </div>
+                                            </div>
+                                            <div class="row align-items-center" id="row-clockwise">
+                                                <div class="col">
+                                                    <p id="clockwise"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div id="map"></div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="rounded">
+                                    <div class="row row_circuit">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div id="compass">
+                                                        <div class="triangle"></div>
+                                                        <div class="letter">N</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col circuito-container">
+                                                    <span id="circuit_error"></span>
+                                                    <svg id="circuito"></svg>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col w-100"></div>
+                                                <div class="col-auto">
+                                                    <div class="btn-group circuit_btn_group" role="group"
+                                                        aria-label="Basic example">
+                                                        <button type="button" class="btn btn-settings"
+                                                            id="circuit_settings" data-bs-toggle="modal"
+                                                            data-bs-target="#legendModal">
+                                                            <svg id="info-icon" xmlns="http://www.w3.org/2000/svg"
+                                                                width="40" height="40" fill="currentColor"
+                                                                class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                                                            </svg>
+                                                        </button>
+                                                        <button type="button" class="btn btn-settings"
+                                                            id="circuit_settings" data-bs-toggle="offcanvas"
+                                                            data-bs-target="#staticBackdrop"
+                                                            aria-controls="staticBackdrop"
+                                                            onclick="loadCircuitSettings()">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                                                height="40" fill="currentColor" class="bi bi-gear-fill"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col w-100"></div>
+                                                <div class="col-auto">
+                                                    <div class="btn-group circuit_btn_group" role="group"
+                                                        aria-label="Basic example">
+
+                                                        <button id="zoom-out" type="button" class="btn btn-settings">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                                                height="40" fill="currentColor" class="bi bi-zoom-out"
+                                                                viewBox="0 0 16 16">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11M13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0" />
+                                                                <path
+                                                                    d="M10.344 11.742q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1 6.5 6.5 0 0 1-1.398 1.4z" />
+                                                                <path fill-rule="evenodd"
+                                                                    d="M3 6.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col w-100"></div>
+                                                <div class="col-auto">
+                                                    <div class="btn-group circuit_btn_group" role="group"
+                                                        aria-label="Basic example">
+
+                                                        <button id="reset" type="button" class="btn btn-settings">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                                                height="40" fill="currentColor"
+                                                                class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
+                                                                <path
+                                                                    d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="col w-100"></div>
+                                                <div class="col-auto">
+                                                    <div class="btn-group circuit_btn_group" role="group"
+                                                        aria-label="Basic example">
+
+                                                        <button id="zoom-in" type="button" class="btn btn-settings">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                                                height="40" fill="currentColor" class="bi bi-zoom-in"
+                                                                viewBox="0 0 16 16">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11M13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0" />
+                                                                <path
+                                                                    d="M10.344 11.742q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1 6.5 6.5 0 0 1-1.398 1.4z" />
+                                                                <path fill-rule="evenodd"
+                                                                    d="M6.5 3a.5.5 0 0 1 .5.5V6h2.5a.5.5 0 0 1 0 1H7v2.5a.5.5 0 0 1-1 0V7H3.5a.5.5 0 0 1 0-1H6V3.5a.5.5 0 0 1 .5-.5" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- Offcanvas Settings -->
+            <div class="offcanvas offcanvas-bottom offcanvas-settings" data-bs-backdrop="static" tabindex="-1"
+                id="staticBackdrop" aria-labelledby="staticBackdropLabel" style="height: 50vh !important;">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="staticBackdropLabel">Circuit Settings</h5>
+                    <button type="button" class="btn btn-setting-close ms-auto" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                            class="bi bi-x-lg" viewBox="0 0 16 16">
+                            <path
+                                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="offcanvas-body">
+                    <div>
+                        <div class="row d-flex align-items-center">
+                            <div class="col">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="rotatedNorth">
+                                    <label class="form-check-label" for="rotatedNorth">
+                                        Rotate to North
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <div class="col">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="checkCorners">
+                                    <label class="form-check-label" for="checkCorners">
+                                        Show Corners
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <div class="col">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="checkMarshall">
+                                    <label class="form-check-label" for="checkMarshall">
+                                        Show Marshall Positions
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex align-items-center">
+                            <div class="col">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="checkMarshallLights">
+                                    <label class="form-check-label" for="checkMarshallLights">
+                                        Show Marshall Lights
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row d-flex justify-content-between">
+                        <div class="col w-100"></div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-save" onclick="changeCircuitSettings()"
+                                data-bs-dismiss="offcanvas">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bootstrap Toast -->
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="toastSettings" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+                    data-bs-delay="2000">
+                    <div class="toast-header">
+                        <strong class="me-auto">Settings</strong>
+                        <button type="button" class="btn ms-auto" data-bs-dismiss="toast" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        The settings for the circuit have been saved.
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal Legend-->
+            <div class="modal fade" id="legendModal" tabindex="-1" aria-labelledby="LegendModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="LegendModalLabel">Legend</h1>
+                            <button type="button" class="btn btn-setting-close ms-auto" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-x-lg" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row d-flex align-items-center">
+                                <div class="col">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"
+                                        fill="var(--dot-corner)" class="bi bi-dot" viewBox="0 0 16 16">
+                                        <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                                    </svg>
+                                </div>
+                                <div class="col">
+                                    <p class="fs-5">Corners</p>
+                                </div>
+                            </div>
+                            <div class="row d-flex align-items-center">
+                                <div class="col">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"
+                                        fill="var(--dot-marshall-position)" class="bi bi-dot" viewBox="0 0 16 16">
+                                        <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                                    </svg>
+                                </div>
+                                <div class="col">
+                                    <p class="fs-5">Marshall Positions</p>
+                                </div>
+                            </div>
+                            <div class="row d-flex  align-items-center">
+                                <div class="col">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"
+                                        fill="var(--dot-marshall-light)" class="bi bi-dot" viewBox="0 0 16 16">
+                                        <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                                    </svg>
+                                </div>
+                                <div class="col">
+                                    <p class="fs-5">Marshall Lights</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-modal" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+</body>
+
+</html>

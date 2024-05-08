@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+.chart-container {
+    margin-top: 20px;
+}
+
+.chart-wrapper {
+    position: relative;
+}
+
+.reset_button{
+    margin: 20px !important;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.reset-zoom-btn {
+    border: #333 2px solid;
+    border-radius: 10px;
+    padding: 8px;
+    font-weight: bolder;
+}
+
+.reset-zoom-btn:hover{
+    box-shadow: 1px 1px 3px #333;
+}
+
+canvas{
+    margin: 20px !important;
+    padding: 20px;
+    border: #333 1px solid;
+    border-radius: 20px;
+}
+
+.card{
+    margin: 20px;
+}
+
+.row-sectors{
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+    font-size: 20px;
+    table{
+        width: 100% !important;
+        border: black 2px solid !important;
+        margin-top: 5px;
+    }
+
+    td{
+        font-size: 15px;
+        border: rgb(0, 0, 0) 1px solid;
+        font-weight: 500;
+    }
+}
+
+#lapDuration{
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.txt-duration{
+    font-weight: bold;
+}
+
+.sector-time{
+    font-weight: bold;
+}
+
+.form-control{
+    height: 100%;
+}
